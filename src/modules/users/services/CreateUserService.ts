@@ -5,12 +5,21 @@ import IUsersRepository from '../repositories/IUsersRepository';
 
 import IHashProvider from '../providers/HashProvider/models/IHashProvider';
 
-import User from '../infra/typeorm/entities/User';
+import User from '../infra/typeorm/schemas/User';
 
+interface Address {
+  street: string,
+  district: string,
+  number: number,
+  city: string,
+  uf: string,
+  country: string;
+}
 interface IRequest {
   name: string;
   email: string;
   password: string;
+  addresses: Address[];
 }
 
 @injectable()
@@ -23,7 +32,7 @@ class CreateUserService {
     private hashProvider: IHashProvider,
   ) { }
 
-  public async execute({ name, email, password }: IRequest): Promise<User> {
+  public async execute({ name, email, password, addresses }: IRequest): Promise<User> {
     const checkUserExist = await this.usersRepository.findByEmail(email);
 
     if (checkUserExist) {
@@ -35,8 +44,11 @@ class CreateUserService {
     const user = await this.usersRepository.create({
       name,
       email,
-      password: hashedPassword
+      password: hashedPassword,
+      addresses
     });
+
+    console.log(user);
 
     return user;
   }

@@ -3,17 +3,20 @@ import { getRepository, Repository } from 'typeorm';
 import IUsersRepository from '@modules/users/repositories/IUsersRepository';
 import ICreateUsersDTO from '@modules/users/dtos/ICreateUserDTO';
 
-import User from '../entities/User';
+import User from '../schemas/User';
+import Address from '../schemas/Address';
 
 class UsersRepository implements IUsersRepository {
   private ormRepository: Repository<User>;
+  private addressOrmRepository: Repository<Address>;
 
   constructor() {
     this.ormRepository = getRepository(User);
+    this.addressOrmRepository = getRepository(Address);
   }
 
-  public async create({ name, email, password }: ICreateUsersDTO): Promise<User> {
-    const user = this.ormRepository.create({ name, email, password });
+  public async create({ name, email, password, addresses }: ICreateUsersDTO): Promise<User> {
+    const user = this.ormRepository.create({ name, email, password, addresses });
 
     await this.ormRepository.save(user);
 
@@ -25,7 +28,8 @@ class UsersRepository implements IUsersRepository {
   }
 
   public async findById(id: string): Promise<User | undefined> {
-    const user = await this.ormRepository.findOne(id);
+    const user = await this.ormRepository.findOne(id, { relations: ["addresses"] });
+
     return user;
   }
 

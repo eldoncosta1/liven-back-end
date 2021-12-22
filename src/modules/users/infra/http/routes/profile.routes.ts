@@ -3,12 +3,13 @@ import { celebrate, Segments, Joi } from 'celebrate';
 import { container } from 'tsyringe';
 import { classToClass } from 'class-transformer';
 
-import UpdateProfileService from '@modules/users/services/UpdateProfileService';
 import ShowProfileService from '@modules/users/services/ShowProfileService';
 
 import ensureAuthenticated from '../middlewares/ensureAuthenticated';
+import ProfileController from '../controllers/ProfileController';
 
 const profileRouter = Router();
+const profileController = new ProfileController();
 
 profileRouter.use(ensureAuthenticated);
 
@@ -20,37 +21,12 @@ profileRouter.put('/',
       old_password: Joi.string(),
       password: Joi.string(),
       password_confirmation: Joi.string().valid(Joi.ref('password')),
+      addresses: Joi.array().items({
+        address: Joi.string().required()
+      }).required()
     }
-  }),
-  async (request, response) => {
-    const user_id = request.user.id;
-    const { name, email, old_password, password } = request.body;
+  }), profileController.update);
 
-    const updateProfile = container.resolve(UpdateProfileService);
-
-    const user = await updateProfile.execute({
-      user_id,
-      name,
-      email,
-      old_password,
-      password,
-    });
-
-    return response.json(classToClass(user));
-
-  });
-
-profileRouter.get('/', async (request, response) => {
-  const user_id = request.user.id;
-
-  const showProfile = container.resolve(ShowProfileService);
-
-  const user = await showProfile.execute({
-    user_id
-  });
-
-  return response.json(classToClass(user));
-
-});
+profileRouter.get('/', profileController.show);
 
 export default profileRouter;

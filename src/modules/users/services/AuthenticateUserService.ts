@@ -6,7 +6,7 @@ import AppError from '@shared/errors/AppError';
 import IUsersRepository from '../repositories/IUsersRepository';
 import IHashProvider from '../providers/HashProvider/models/IHashProvider';
 
-import User from '../infra/typeorm/entities/User';
+import User from '../infra/typeorm/schemas/User';
 
 interface IRequest {
   email: string;
@@ -45,7 +45,7 @@ class AuthenticateUserService {
     const { secret, expiresIn } = authConfig.jwt;
 
     const token = sign({}, secret, {
-      subject: user.id,
+      subject: user.id.toString(),
       expiresIn,
     });
 

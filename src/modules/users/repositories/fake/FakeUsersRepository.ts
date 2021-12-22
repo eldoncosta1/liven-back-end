@@ -4,7 +4,7 @@ import { uuid } from 'uuidv4';
 import IUsersRepository from '@modules/users/repositories/IUsersRepository';
 import ICreateUsersDTO from '@modules/users/dtos/ICreateUserDTO';
 
-import User from '../../infra/typeorm/entities/User';
+import User from '../../infra/typeorm/schemas/User';
 
 class UsersRepository implements IUsersRepository {
   private users: User[] = [];

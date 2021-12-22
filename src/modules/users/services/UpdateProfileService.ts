@@ -1,20 +1,23 @@
 import path from 'path';
 import fs from 'fs';
-import uploadConfig from '@config/upload';
 import { injectable, inject } from 'tsyringe';
 
 import AppError from '@shared/errors/AppError';
 import IHashProvider from '../providers/HashProvider/models/IHashProvider';
 import IUsersRepository from '../repositories/IUsersRepository';
 
-import User from '../infra/typeorm/entities/User';
-
+import User from '../infra/typeorm/schemas/User';
+import Address from '../infra/typeorm/schemas/Address';
+// interface Address {
+//   address: string;
+// }
 interface IRequest {
   user_id: string;
   name: string;
   email: string;
   old_password?: string;
   password?: string;
+  addresses: Address[];
 }
 
 @injectable()
@@ -27,7 +30,7 @@ class UpdateProfileService {
     private hashProvider: IHashProvider,
   ) { }
 
-  public async execute({ user_id, name, email, password, old_password }: IRequest): Promise<User> {
+  public async execute({ user_id, name, email, password, old_password, addresses }: IRequest): Promise<User> {
     const user = await this.usersRepository.findById(user_id);
 
     if (!user) {
@@ -42,6 +45,10 @@ class UpdateProfileService {
 
     user.name = name;
     user.email = email;
+
+    if (addresses) {
+      user.addresses = addresses;
+    }
 
     if (password && !old_password) {
       throw new AppError('You need to inform the old password to set a new password');

@@ -1,14 +1,13 @@
 import { Router } from 'express';
 import { celebrate, Segments, Joi } from 'celebrate';
-import { container } from 'tsyringe';
-import { classToClass } from 'class-transformer';
-import multer from 'multer';
 
+import UsersController from '../controllers/UsersController';
 import CreateUserService from '@modules/users/services/CreateUserService';
 
 import ensureAuthenticated from '../middlewares/ensureAuthenticated';
 
 const usersRouter = Router();
+const usersController = new UsersController();
 
 // usersRouter.get('/', ensureAuthenticated, async (request, response) => {
 //   const { id } = request.body;
@@ -26,20 +25,15 @@ usersRouter.post('/',
       name: Joi.string().required(),
       email: Joi.string().email().required(),
       password: Joi.string().required(),
+      addresses: Joi.array().items({
+        street: Joi.string().required(),
+        district: Joi.string().required(),
+        number: Joi.number().required(),
+        city: Joi.string().required(),
+        uf: Joi.string().required(),
+        country: Joi.string().required(),
+      }).required()
     }
-  }),
-  async (request, response) => {
-    const { name, email, password } = request.body;
-
-    const createUser = container.resolve(CreateUserService);
-
-    const user = await createUser.execute({
-      name,
-      email,
-      password
-    });
-
-    return response.json(classToClass(user));
-  });
+  }), usersController.create);
 
 export default usersRouter;
