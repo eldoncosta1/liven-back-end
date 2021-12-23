@@ -4,7 +4,7 @@ import { uuid } from 'uuidv4';
 import IUsersRepository from '@modules/users/repositories/IUsersRepository';
 import ICreateUsersDTO from '@modules/users/dtos/ICreateUserDTO';
 
-import User from '../../infra/typeorm/schemas/User';
+import User from '../../infra/typeorm/entities/User';
 
 class UsersRepository implements IUsersRepository {
   private users: User[] = [];
@@ -35,6 +35,14 @@ class UsersRepository implements IUsersRepository {
     this.users[findIndex] = user;
 
     return user;
+  }
+
+  public async delete(id: string): Promise<void> {
+    const findUserIndex = this.users.findIndex(findUser => findUser.id === id);
+
+    if (findUserIndex != -1) {
+      this.users.splice(findUserIndex, 1);
+    }
   }
 
 }
