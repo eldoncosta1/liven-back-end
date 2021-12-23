@@ -5,7 +5,7 @@ import IUsersRepository from '../repositories/IUsersRepository';
 
 import IHashProvider from '../providers/HashProvider/models/IHashProvider';
 
-import User from '../infra/typeorm/schemas/User';
+import User from '../infra/typeorm/entities/User';
 
 interface Address {
   street: string,
@@ -47,8 +47,6 @@ class CreateUserService {
       password: hashedPassword,
       addresses
     });
-
-    console.log(user);
 
     return user;
   }

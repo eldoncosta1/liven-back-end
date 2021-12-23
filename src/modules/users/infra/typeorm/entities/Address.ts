@@ -1,11 +1,11 @@
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, ObjectIdColumn, UpdateDateColumn } from 'typeorm';
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, ObjectID, ObjectIdColumn, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 
 import User from './User';
 
-@Entity('address')
+@Entity('addresses')
 class Address {
 
-  @ObjectIdColumn()
+  @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column()
@@ -27,7 +27,9 @@ class Address {
   country: string;
 
   @ManyToOne(() => User, user => user.addresses)
+  @JoinColumn({ name: 'user_id' })
   user: User;
+
 
 }
 

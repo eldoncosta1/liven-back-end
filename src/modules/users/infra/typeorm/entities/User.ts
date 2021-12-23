@@ -1,11 +1,11 @@
-import { Column, Entity, ObjectIdColumn, CreateDateColumn, UpdateDateColumn, OneToMany, JoinTable, JoinColumn } from 'typeorm';
+import { Column, Entity, CreateDateColumn, UpdateDateColumn, OneToMany, JoinColumn, ObjectID, PrimaryGeneratedColumn } from 'typeorm';
 
 import { Exclude, Expose } from 'class-transformer';
 import Address from './Address';
 
 @Entity('users')
 class User {
-  @ObjectIdColumn()
+  @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column()
@@ -18,11 +18,10 @@ class User {
   @Exclude()
   password: string;
 
-  @OneToMany(() => Address, address => address.user, {
+  @OneToMany(() => Address, addresses => addresses.user, {
     cascade: true,
-    eager: true,
+    eager: true
   })
-  @JoinColumn()
   addresses: Address[];
 
   @CreateDateColumn()

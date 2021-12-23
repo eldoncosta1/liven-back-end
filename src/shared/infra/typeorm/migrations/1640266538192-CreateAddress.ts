@@ -1,11 +1,11 @@
 import { MigrationInterface, QueryRunner, Table } from "typeorm";
 
-export default class CreateErolleds1616094524123 implements MigrationInterface {
+export class CreateAddress1640266538192 implements MigrationInterface {
 
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: 'enrolleds',
+        name: 'addresses',
         columns: [
           {
             name: 'id',
@@ -15,8 +15,28 @@ export default class CreateErolleds1616094524123 implements MigrationInterface {
             default: 'uuid_generate_v4()'
           },
           {
-            name: 'sport_id',
-            type: 'uuid',
+            name: 'street',
+            type: 'varchar'
+          },
+          {
+            name: 'number',
+            type: 'decimal'
+          },
+          {
+            name: 'district',
+            type: 'varchar'
+          },
+          {
+            name: 'city',
+            type: 'varchar'
+          },
+          {
+            name: 'uf',
+            type: 'varchar'
+          },
+          {
+            name: 'country',
+            type: 'varchar'
           },
           {
             name: 'user_id',
@@ -32,31 +52,24 @@ export default class CreateErolleds1616094524123 implements MigrationInterface {
             type: 'timestamp',
             default: 'now()'
           }
+
         ],
         foreignKeys: [
           {
-            name: 'EnrolledUserId',
+            name: 'AddressUser',
             referencedTableName: 'users',
             referencedColumnNames: ['id'],
             columnNames: ['user_id'],
             onDelete: 'CASCADE',
             onUpdate: 'CASCADE',
-          },
-          {
-            name: 'EnrolledSportId',
-            referencedTableName: 'sports',
-            referencedColumnNames: ['id'],
-            columnNames: ['sport_id'],
-            onDelete: 'CASCADE',
-            onUpdate: 'CASCADE',
           }
-        ]
-      }),
+        ],
+      })
     );
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('enrolleds');
+    await queryRunner.dropTable('addresses');
   }
 
 }
