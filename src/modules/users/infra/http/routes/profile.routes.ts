@@ -20,13 +20,11 @@ profileRouter.put('/',
       email: Joi.string().email().required(),
       old_password: Joi.string(),
       password: Joi.string(),
-      password_confirmation: Joi.string().valid(Joi.ref('password')),
-      addresses: Joi.array().items({
-        address: Joi.string().required()
-      }).required()
+      password_confirmation: Joi.string().valid(Joi.ref('password'))
     }
   }), profileController.update);
 
 profileRouter.get('/', profileController.show);
+profileRouter.delete('/', profileController.delete);
 
 export default profileRouter;

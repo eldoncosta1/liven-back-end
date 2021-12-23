@@ -19,4 +19,5 @@ export default class UsersController {
 
     return response.json(classToClass(user));
   }
+
 }

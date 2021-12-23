@@ -4,6 +4,7 @@ import { classToClass } from 'class-transformer';
 
 import UpdateProfileService from "@modules/users/services/UpdateProfileService";
 import ShowProfileService from "@modules/users/services/ShowProfileService";
+import RemoveProfileUserService from "@modules/users/services/RemoveProfileUserService";
 
 export default class ProfileController {
   public async update(request: Request, response: Response): Promise<Response> {
@@ -34,6 +35,16 @@ export default class ProfileController {
     });
 
     return response.json(classToClass(user));
+  }
+
+  public async delete(request: Request, response: Response): Promise<Response> {
+    const user_id = request.user.id;
+
+    const deleteUser = container.resolve(RemoveProfileUserService);
+
+    await deleteUser.execute({ id: user_id });
+
+    return response.sendStatus(204);
   }
 
 }

@@ -6,18 +6,20 @@ import AppError from '@shared/errors/AppError';
 import IHashProvider from '../providers/HashProvider/models/IHashProvider';
 import IUsersRepository from '../repositories/IUsersRepository';
 
-import User from '../infra/typeorm/schemas/User';
-import Address from '../infra/typeorm/schemas/Address';
-// interface Address {
-//   address: string;
-// }
+import User from '../infra/typeorm/entities/User';
+import Address from '../infra/typeorm/entities/Address';
+
+interface UpdateAddress extends Address {
+  user_id: string;
+}
+
 interface IRequest {
   user_id: string;
   name: string;
   email: string;
   old_password?: string;
   password?: string;
-  addresses: Address[];
+  addresses: UpdateAddress[];
 }
 
 @injectable()
@@ -45,10 +47,6 @@ class UpdateProfileService {
 
     user.name = name;
     user.email = email;
-
-    if (addresses) {
-      user.addresses = addresses;
-    }
 
     if (password && !old_password) {
       throw new AppError('You need to inform the old password to set a new password');

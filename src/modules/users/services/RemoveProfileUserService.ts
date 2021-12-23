@@ -5,27 +5,28 @@ import IUsersRepository from '../repositories/IUsersRepository';
 
 import User from '../infra/typeorm/entities/User';
 
+
 interface IRequest {
-  user_id: string;
+  id: string;
 }
 
 @injectable()
-class ShowProfileService {
+class RemoveProfileUserService {
   constructor(
     @inject('UsersRepository')
     private usersRepository: IUsersRepository,
-
   ) { }
 
-  public async execute({ user_id }: IRequest): Promise<User> {
-    const user = await this.usersRepository.findById(user_id);
+  public async execute({ id }: IRequest): Promise<void> {
+    const checkUserExist = await this.usersRepository.findById(id);
 
-    if (!user) {
-      throw new AppError('User not found');
+    if (!checkUserExist) {
+      throw new AppError('User not found.')
     }
 
-    return user;
+    await this.usersRepository.delete(id);
+
   }
 }
 
-export default ShowProfileService;
+export default RemoveProfileUserService;
