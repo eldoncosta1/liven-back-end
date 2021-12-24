@@ -20,7 +20,8 @@ describe('AuthenticateUser', () => {
     const user = await fakeUsersRepository.create({
       name: 'John Doe',
       email: 'johndow@example.com',
-      password: '123456'
+      password: '123456',
+      addresses: []
     });
 
     const response = await authenticateUser.execute({
@@ -44,7 +45,8 @@ describe('AuthenticateUser', () => {
     await fakeUsersRepository.create({
       name: 'John Doe',
       email: 'johndow@example.com',
-      password: '123456'
+      password: '123456',
+      addresses: []
     });
 
     await expect(authenticateUser.execute({

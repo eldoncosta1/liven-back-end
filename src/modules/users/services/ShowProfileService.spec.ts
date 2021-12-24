@@ -1,10 +1,8 @@
 import AppError from '@shared/errors/AppError';
 
-import FakeHashProvider from '../providers/HashProvider/fakes/FakeHashProvider';
 import FakeUsersRepository from '../repositories/fake/FakeUsersRepository';
 import ShowProfileService from './ShowProfileService';
 
-let fakeHashProvider: FakeHashProvider;
 let fakeUsersRepository: FakeUsersRepository;
 let showProfile: ShowProfileService;
 
@@ -12,7 +10,6 @@ describe('ShowProfile', () => {
 
   beforeEach(() => {
     fakeUsersRepository = new FakeUsersRepository();
-    fakeHashProvider = new FakeHashProvider();
 
     showProfile = new ShowProfileService(
       fakeUsersRepository
@@ -24,6 +21,7 @@ describe('ShowProfile', () => {
       name: 'John Doe',
       email: 'johndoe@example.com',
       password: '123456',
+      addresses: []
     });
 
     const profile = await showProfile.execute({
