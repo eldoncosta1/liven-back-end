@@ -1,3 +1,4 @@
+import { Exclude } from 'class-transformer';
 import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, ObjectID, ObjectIdColumn, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 
 import User from './User';
@@ -28,8 +29,14 @@ class Address {
 
   @ManyToOne(() => User, user => user.addresses)
   @JoinColumn({ name: 'user_id' })
+  @Exclude()
   user: User;
 
+  @CreateDateColumn()
+  created_at: Date;
+
+  @UpdateDateColumn()
+  updated_at: Date;
 
 }
 
