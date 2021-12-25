@@ -2,6 +2,7 @@ import 'reflect-metadata';
 import 'dotenv/config';
 
 import express, { Request, Response, NextFunction } from 'express';
+import swaggerUi from 'swagger-ui-express';
 import cors from 'cors';
 import { errors } from 'celebrate';
 import 'express-async-errors';
@@ -12,10 +13,18 @@ import routes from './routes';
 import '@shared/infra/typeorm';
 import '@shared/container';
 
+import swaggerDocs from '@shared/swagger.json';
+
 const app = express();
 
 app.use(cors());
 app.use(express.json());
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+app.get("/terms", (request: Request, response: Response) => {
+  return response.json({
+    message: "Termos de serviço"
+  });
+});
 app.use(routes);
 
 app.use(errors());
