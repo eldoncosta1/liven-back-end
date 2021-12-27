@@ -49,7 +49,29 @@ class AddressesRepository implements IAddressesRepository {
   }
 
   public async findByUserId(user_id: string): Promise<Address[]> {
-    const address = await this.ormRepository.find({ where: { user_id } });
+    const address = await this.ormRepository.find({
+      where: {
+        user: {
+          id: user_id
+        }
+      }
+    });
+
+
+    return address;
+  }
+
+  public async findByCountry(user_id: string, country: string): Promise<Address[]> {
+    const address = await this.ormRepository.find({
+      where: {
+        user: {
+          id: user_id
+        },
+        country
+      }
+    });
+
+
     return address;
   }
 
