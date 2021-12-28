@@ -20,12 +20,13 @@ class AddressesRepository implements IAddressesRepository {
     number,
     city,
     country,
-    uf
+    uf,
+    user
   }: ICreateAddressDTO): Promise<Address> {
 
     const address = new Address();
 
-    Object.assign(address, { id: uuid(), street, district, number, city, country, uf });
+    Object.assign(address, { id: uuid(), street, district, number, city, country, uf, user });
 
     this.addresses.push(address);
 
