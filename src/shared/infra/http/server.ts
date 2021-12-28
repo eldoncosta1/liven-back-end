@@ -22,7 +22,7 @@ app.use(express.json());
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 app.get("/terms", (request: Request, response: Response) => {
   return response.json({
-    message: "Termos de serviço"
+    message: "API desenvolvida como projeto de avaliação técnica backend da liven.tech"
   });
 });
 app.use(routes);

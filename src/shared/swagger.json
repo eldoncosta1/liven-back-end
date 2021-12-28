@@ -89,7 +89,7 @@
     },
     "/user/profile": {
       "get": {
-        "summary": "Listar perfil do usuário",
+        "summary": "Exibir perfil do usuário",
         "description": "Buscar perfil de usuário logado",
         "tags": [
           "User"
@@ -107,6 +107,316 @@
                 "schema": {
                   "type": "object",
                   "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Alterar dados do usuário",
+        "description": "Permitir que o usuário consiga alterar seus dados",
+        "tags": [
+          "User"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Profile"
+              },
+              "examples": {
+                "user": {
+                  "value": {
+                    "name": "John Doe",
+                    "email": "john.doe1@test.com",
+                    "old_password": "123456",
+                    "password": "54321"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/Profile"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/address": {
+      "post": {
+        "summary": "Cadastro de endereço",
+        "description": "Essa rota será responsável por cadastrar um novo endereço para o usuário",
+        "tags": [
+          "Address"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Address"
+              },
+              "examples": {
+                "address": {
+                  "value": {
+                    "street": "Rua 11",
+                    "district": "Jatoba",
+                    "number": "850",
+                    "city": "Petrolina",
+                    "uf": "BA",
+                    "country": "USA"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "401": {
+            "description": "Invalid jwt token"
+          },
+          "400": {
+            "description": "User not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/Address"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Alterar um endereço de usuário",
+        "description": "Permitir que o usuário consiga alterar os dados de um endereço",
+        "tags": [
+          "Address"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Address"
+              },
+              "examples": {
+                "address": {
+                  "value": {
+                    "id": "dcde4b55-3446-4a16-a911-cb63dfdd3c1b",
+                    "street": "Rua 111",
+                    "district": "Jatobá",
+                    "number": "851",
+                    "city": "Petrolina",
+                    "uf": "BA",
+                    "country": "USA"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/Address"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid jwt token"
+          },
+          "400": {
+            "description": "Address not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "Exibir lista de endereços do usuário",
+        "description": "Buscar endereços do usuário",
+        "tags": [
+          "Address"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "$ref": "#/components/schemas/Address"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/address/{id}": {
+      "get": {
+        "summary": "Buscar endereço pelo id",
+        "description": "Buscar endereço do usuário",
+        "tags": [
+          "Address"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Invalid jwt token"
+          },
+          "400": {
+            "description": "Address not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/Address"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/address/findByCountry": {
+      "get": {
+        "summary": "Buscar endereços pelo campo country",
+        "description": "Buscar endereços de um determinado país",
+        "tags": [
+          "Address"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "country",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Invalid jwt token"
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "$ref": "#/components/schemas/Address"
+                  }
                 }
               }
             }
@@ -154,6 +464,43 @@
                 }
               }
             }
+          }
+        }
+      },
+      "Profile": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        }
+      },
+      "Address": {
+        "type": "object",
+        "properties": {
+          "street": {
+            "type": "string"
+          },
+          "district": {
+            "type": "string"
+          },
+          "number": {
+            "type": "integer"
+          },
+          "city": {
+            "type": "string"
+          },
+          "uf": {
+            "type": "string"
+          },
+          "country": {
+            "type": "string"
           }
         }
       }
