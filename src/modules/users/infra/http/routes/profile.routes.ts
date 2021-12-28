@@ -1,9 +1,5 @@
 import { Router } from 'express';
 import { celebrate, Segments, Joi } from 'celebrate';
-import { container } from 'tsyringe';
-import { classToClass } from 'class-transformer';
-
-import ShowProfileService from '@modules/users/services/ShowProfileService';
 
 import ensureAuthenticated from '../middlewares/ensureAuthenticated';
 import ProfileController from '../controllers/ProfileController';

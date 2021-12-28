@@ -1,3 +1,5 @@
+import User from "../infra/typeorm/entities/User";
+
 export default interface ICreateAddressDTO {
   street: string;
   number: number;
@@ -5,4 +7,5 @@ export default interface ICreateAddressDTO {
   city: string;
   uf: string;
   country: string;
+  user?: User;
 }

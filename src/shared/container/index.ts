@@ -8,6 +8,9 @@ import UsersRepository from '@modules/users/infra/typeorm/repositories/UsersRepo
 import IUserTokensRepository from '@modules/users/repositories/IUsersTokenRepository';
 import UserTokensRepository from '@modules/users/infra/typeorm/repositories/UsersTokensRepository';
 
+import IAddressesRepository from '@modules/users/repositories/IAddressesRepository';
+import AddressesRepository from '@modules/users/infra/typeorm/repositories/AddressesRepository';
+
 
 container.registerSingleton<IUsersRepository>(
   'UsersRepository',
@@ -19,3 +22,7 @@ container.registerSingleton<IUserTokensRepository>(
   UserTokensRepository
 );
 
+container.registerSingleton<IAddressesRepository>(
+  'AddressesRepository',
+  AddressesRepository
+);
