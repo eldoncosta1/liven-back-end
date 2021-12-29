@@ -18,6 +18,12 @@ class ProductsRepository implements IProductsRepository {
     return products;
   }
 
+  public async findById(id: string): Promise<Product | undefined> {
+    const product = await this.ormRepository.findOne(id);
+
+    return product;
+  }
+
 }
 
 export default ProductsRepository;
