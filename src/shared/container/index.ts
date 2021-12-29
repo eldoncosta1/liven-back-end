@@ -11,6 +11,9 @@ import UserTokensRepository from '@modules/users/infra/typeorm/repositories/User
 import IAddressesRepository from '@modules/users/repositories/IAddressesRepository';
 import AddressesRepository from '@modules/users/infra/typeorm/repositories/AddressesRepository';
 
+import IProductsRepository from '@modules/products/repositories/IProductsRepository';
+import ProductsRepository from '@modules/products/infra/typeorm/repositories/ProductsRepository';
+
 
 container.registerSingleton<IUsersRepository>(
   'UsersRepository',
@@ -25,4 +28,9 @@ container.registerSingleton<IUserTokensRepository>(
 container.registerSingleton<IAddressesRepository>(
   'AddressesRepository',
   AddressesRepository
+);
+
+container.registerSingleton<IProductsRepository>(
+  'ProductsRepository',
+  ProductsRepository
 );
