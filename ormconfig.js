@@ -29,6 +29,10 @@ if (process.env.environment === 'local') {
       "username": process.env.POSTGRES_USERNAME,
       "password": process.env.POSTGRES_PASSWORD,
       "database": process.env.POSTGRES_DB,
+      "autoLoadEntities": true,
+      "ssl": {
+        "rejectUnauthorized": false
+      },
       "entities": [
         "./dist/modules/**/infra/typeorm/entities/*.js"
       ],
