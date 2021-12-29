@@ -25,7 +25,6 @@ if (process.env.environment === 'local') {
       "name": "default",
       "type": "postgres",
       "url": process.env.DATABASE_URL,
-      "autoLoadEntities": true,
       "ssl": {
         "rejectUnauthorized": false
       },
