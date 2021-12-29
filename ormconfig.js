@@ -1,3 +1,4 @@
+console.log("database >> ", process.env.DATABASE_URL);
 if (process.env.environment === 'local') {
   module.exports = [
     {
