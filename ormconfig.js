@@ -40,7 +40,8 @@ if (process.env.environment === 'local') {
         "./dist/shared/**/infra/typeorm/migrations/*.js"
       ],
       "cli": {
-        "migrationsDir": "./src/shared/infra/typeorm/migrations"
+        "migrationsDir": "./src/shared/infra/typeorm/migrations",
+        "entitiesDir": "./src/modules/**/infra/typeorm/entities"
       }
     }
   ]
