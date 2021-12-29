@@ -1,4 +1,3 @@
-console.log("database >> ", process.env.DATABASE_URL);
 if (process.env.environment === 'local') {
   module.exports = [
     {
@@ -23,7 +22,6 @@ if (process.env.environment === 'local') {
 } else {
   module.exports = [
     {
-      "name": "default",
       "type": "postgres",
       "url": process.env.DATABASE_URL,
       "ssl": {
@@ -33,11 +31,10 @@ if (process.env.environment === 'local') {
         "./dist/modules/**/infra/typeorm/entities/*.js"
       ],
       "migrations": [
-        "./dist/shared/**/infra/typeorm/migrations/*.js"
+        "./dist/shared/infra/typeorm/migrations/*.js"
       ],
       "cli": {
-        "migrationsDir": "./src/shared/infra/typeorm/migrations",
-        "entitiesDir": "./src/modules/**/infra/typeorm/entities"
+        "migrationsDir": "./src/shared/infra/typeorm/migrations"
       }
     }
   ]

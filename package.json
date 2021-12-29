@@ -6,8 +6,7 @@
   "scripts": {
     "build": "babel src --extensions \".js,.ts\" --out-dir dist --copy-files",
     "dev:server": "ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --ignore-watch node_modules src/shared/infra/http/server.ts",
-    "start": "node dist/shared/infra/http/server.js",
-    "start:local": "ts-node src/shared/infra/http/server.ts",
+    "start": "ts-node src/shared/infra/http/server.ts",
     "typeorm:local": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
     "typeorm": "node --require ts-node/register ./node_modules/typeorm/cli.js",
     "test": "jest"
@@ -19,7 +18,7 @@
     "axios": "^0.21.1",
     "bcryptjs": "^2.4.3",
     "celebrate": "^13.0.4",
-    "class-transformer": "^0.4.0",
+    "class-transformer": "0.4.0",
     "cors": "^2.8.5",
     "date-fns": "^2.14.0",
     "dotenv": "^8.2.0",
@@ -53,7 +52,7 @@
     "@babel/preset-env": "^7.13.10",
     "@babel/preset-typescript": "^7.13.0",
     "@types/bcryptjs": "^2.4.2",
-    "@types/cors": "^2.8.12",
+    "@types/cors": "^2.8.10",
     "@types/express": "^4.17.11",
     "@types/ioredis": "^4.22.0",
     "@types/jest": "^26.0.20",
@@ -72,6 +71,6 @@
     "prettier": "^2.2.1",
     "ts-jest": "^26.5.3",
     "tsconfig-paths": "^3.11.0",
-    "typescript": "^4.2.2"
+    "typescript": "^3.8.3"
   }
 }
